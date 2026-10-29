@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BYONE ENTERTAINMENT - Distribuidora</title>
+<meta name="theme-color" content="#0a0a0a">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0a0a0a;color:#fff;min-height:100vh}
+.header{background:linear-gradient(135deg,#ff0055,#8a00ff);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:18px;letter-spacing:1px}
+.logo span{color:#00ff88}
+.nav{display:flex;gap:6px;padding:12px;overflow-x:auto;background:#111}
+.nav button{background:#1a1a1a;border:none;color:#aaa;padding:10px 14px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
+.nav button.active{background:#fff;color:#000}
+.card{background:#151515;border-radius:20px;padding:18px;margin:12px;border:1px solid #222}
+h2{font-size:16px;margin-bottom:12px}
+label{font-size:11px;color:#888;font-weight:700;margin-top:12px;display:block;text-transform:uppercase}
+input,select,textarea{width:100%;background:#0f0f0f;border:1px solid #222;color:#fff;padding:12px;border-radius:12px;margin-top:6px;font-size:14px}
+.btn{width:100%;padding:14px;border-radius:14px;border:none;font-weight:900;font-size:14px;margin-top:14px;cursor:pointer}
+.btn-main{background:linear-gradient(135deg,#ff0055,#8a00ff);color:#fff}
+.btn-ghost{background:#1a1a1a;color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.platform{display:flex;align-items:center;gap:10px;background:#0f0f0f;border:1px solid #222;padding:10px;border-radius:12px;margin-top:8px}
+.platform input{width:18px}
+.coverBox{width:100%;aspect-ratio:1;background:#0f0f0f;border:2px dashed #333;border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.coverBox img{width:100%;height:100%;object-fit:cover}
+.statRow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:13px}
+.badge{padding:4px 8px;border-radius:20px;font-size:10px;font-weight:800}
+.badge-live{background:#00ff88;color:#000}
+.badge-pend{background:#ffcc00;color:#000}
+.progress{height:6px;background:#222;border-radius:10px;overflow:hidden;margin-top:6px}
+.progress div{height:100%;background:linear-gradient(90deg,#ff0055,#8a00ff)}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">BYONE <span>ENTERTAINMENT</span></div>
+<div style="font-size:11px;background:#00ff88;color:#000;padding:4px 8px;border-radius:20px;font-weight:800">DISTRIBUIDORA</div>
+</div>
+
+<div class="nav">
+<button class="active" onclick="tab('distribuir')" id="tDist">Distribuir</button>
+<button onclick="tab('lancamentos')" id="tLanc">Meus Lançamentos</button>
+<button onclick="tab('receitas')" id="tRec">Receitas</button>
+<button onclick="tab('artistas')" id="tArt">Artistas</button>
+</div>
+
+<div id="pageDistribuir">
+<div class="card">
+<h2>🎵 Novo Lançamento</h2>
+<label>Capa (3000x3000)</label>
+<div class="coverBox" onclick="document.getElementById('coverFile').click()" id="coverBox">
+<span id="coverTxt">📸 Clique para adicionar capa</span>
+<img id="coverPrev" style="display:none">
+</div>
+<input type="file" id="coverFile" accept="image/*" hidden>
+<label>Arquivo de Áudio (MP3/WAV)</label>
+<input type="file" id="audioFile" accept="audio/*">
+<div id="audioInfo" style="font-size:11px;color:#00ff88;margin-top:6px"></div>
+<label>Título da Música / Álbum</label>
+<input id="titulo" placeholder="Ex: Amor em Luanda">
+<label>Artista Principal</label>
+<input id="artista" placeholder="Ex: Preto Show ft. BYONE">
+<label>Gênero</label>
+<select id="genero">
+<option>Kuduro</option><option>Afro House</option><option>Kizomba</option><option>Semba</option><option>Afrobeat</option><option>Hip Hop</option><option>R&B</option><option>Gospel</option><option>Amapiano</option>
+</select>
+<div class="grid2">
+<div><label>Data de Lançamento</label><input type="date" id="dataLanc"></div>
+<div><label>Tipo</label><select id="tipo"><option>Single</option><option>EP</option><option>Álbum</option></select></div>
+</div>
+<h2 style="margin-top:18px">📡 Distribuir para:</h2>
+<div id="platforms">
+<div class="platform"><input type="checkbox" checked> Spotify</div>
+<div class="platform"><input type="checkbox" checked> Apple Music / iTunes</div>
+<div class="platform"><input type="checkbox" checked> YouTube Music</div>
+<div class="platform"><input type="checkbox" checked> Deezer</div>
+<div class="platform"><input type="checkbox" checked> Tidal</div>
+<div class="platform"><input type="checkbox" checked> TikTok / Instagram Reels</div>
+<div class="platform"><input type="checkbox" checked> Boomplay</div>
+<div class="platform"><input type="checkbox" checked> Audiomack</div>
+</div>
+<div class="grid2" style="margin-top:12px">
+<div><label>ISRC (auto)</label><input id="isrc" value="AO-BY1-26-"></div>
+<div><label>UPC (auto)</label><input id="upc" value="1980"></div>
+</div>
+<button class="btn btn-main" onclick="distribuir()">🚀 DISTRIBUIR AGORA</button>
+</div>
+</div>
+
+<div id="pageLancamentos" style="display:none">
+<div class="card">
+<h2>📦 Meus Lançamentos</h2>
+<div id="listaLanc"></div>
+</div>
+</div>
+
+<div id="pageReceitas" style="display:none">
+<div class="card">
+<h2>💰 Receitas & Streams</h2>
+<div class="statRow"><span>Saldo Disponível</span><span style="font-weight:900;color:#00ff88" id="saldo">Kz 0,00</span></div>
+<div class="statRow"><span>Total Streams</span><span id="streams">0</span></div>
+<button class="btn btn-ghost" onclick="sacar()">Solicitar Saque (IBAN)</button>
+</div>
+</div>
+
+<div id="pageArtistas" style="display:none">
+<div class="card">
+<h2>👥 Meus Artistas</h2>
+<input id="novoArt" placeholder="Nome do artista">
+<button class="btn btn-ghost" onclick="addArtista()">+ Adicionar Artista</button>
+<ul id="listArt" style="margin-top:12px;list-style:none"></ul>
+</div>
+</div>
+
+<script>
+let lancamentos = JSON.parse(localStorage.getItem('byone_music')||'[]');
+let artistas = JSON.parse(localStorage.getItem('byone_artists')||'[]');
+document.getElementById('coverFile').addEventListener('change', e=>{
+ const f=e.target.files[0]; if(!f) return;
+ const url=URL.createObjectURL(f);
+ document.getElementById('coverPrev').src=url;
+ document.getElementById('coverPrev').style.display='block';
+ document.getElementById('coverTxt').style.display='none';
+});
+document.getElementById('audioFile').addEventListener('change', e=>{
+ const f=e.target.files[0]; if(!f) return;
+ document.getElementById('audioInfo').innerText = `🎧 ${f.name} carregado`;
+ document.getElementById('isrc').value = 'AO-BY1-26-'+Math.floor(10000+Math.random()*90000);
+ document.getElementById('upc').value = '1980'+Math.floor(100000000000+Math.random()*900000000000);
+});
+function tab(t){
+ document.getElementById('pageDistribuir').style.display = t=='distribuir'?'block':'none';
+ document.getElementById('pageLancamentos').style.display = t=='lancamentos'?'block':'none';
+ document.getElementById('pageReceitas').style.display = t=='receitas'?'block':'none';
+ document.getElementById('pageArtistas').style.display = t=='artistas'?'block':'none';
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ document.getElementById(t=='distribuir'?'tDist':t=='lancamentos'?'tLanc':t=='receitas'?'tRec':'tArt').classList.add('active');
+ if(t=='lancamentos') renderLanc();
+ if(t=='artistas') renderArt();
+}
+function distribuir(){
+ const tit = document.getElementById('titulo').value;
+ const art = document.getElementById('artista').value;
+ if(!tit||!art){ alert('Preencha título e artista'); return; }
+ const novo = {id: Date.now(),titulo: tit,artista: art,genero: document.getElementById('genero').value,data: document.getElementById('dataLanc').value,isrc: document.getElementById('isrc').value,upc: document.getElementById('upc').value,status: 'Em distribuição',streams: Math.floor(Math.random()*500),capa: document.getElementById('coverPrev').src || ''};
+ lancamentos.unshift(novo);
+ localStorage.setItem('byone_music', JSON.stringify(lancamentos));
+ alert('🚀 Sucesso! Sua música foi enviada! Código BYONE: '+novo.isrc);
+ tab('lancamentos');
+}
+function renderLanc(){
+ if(lancamentos.length==0){ document.getElementById('listaLanc').innerHTML='<p style="color:#666;font-size:12px">Nenhum lançamento ainda.</p>'; return; }
+ document.getElementById('listaLanc').innerHTML = lancamentos.map(l=>`
+ <div style="display:flex;gap:12px;background:#0f0f0f;padding:10px;border-radius:14px;margin-top:10px">
+ <div style="width:60px;height:60px;background:#222;border-radius:10px;overflow:hidden">${l.capa?`<img src="${l.capa}" style="width:100%;height:100%;object-fit:cover">`:'🎵'}</div>
+ <div style="flex:1"><b style="font-size:13px">${l.titulo}</b><br><small style="color:#888">${l.artista} • ${l.genero}</small><br>
+ <span class="badge badge-pend">${l.status}</span> <small style="color:#666">${l.isrc}</small><br>
+ <small style="color:#00ff88">${l.streams} streams</small></div></div>`).join('');
+}
+function addArtista(){ const n=document.getElementById('novoArt').value; if(!n) return; artistas.push(n); localStorage.setItem('byone_artists', JSON.stringify(artistas)); document.getElementById('novoArt').value=''; renderArt();}
+function renderArt(){ document.getElementById('listArt').innerHTML = artistas.map(a=>`<li style="padding:8px;background:#0f0f0f;margin-top:6px;border-radius:10px">${a}</li>`).join('');}
+function sacar(){ let iban = prompt('Digite seu IBAN AO06:'); if(iban && iban.startsWith('AO06')){ alert('Saque solicitado!'); } else alert('IBAN inválido');}
+let totalStreams = lancamentos.reduce((s,l)=>s+l.streams,0);
+document.getElementById('streams').innerText = totalStreams.toLocaleString();
+document.getElementById('saldo').innerText = 'Kz '+(totalStreams*2.5).toLocaleString('pt-AO')+',00';
+</script>
+</body>
+</html>
